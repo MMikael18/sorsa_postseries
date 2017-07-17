@@ -114,7 +114,7 @@ Print links list front of content if Series tag exist and there is more that one
 */
 
 function sorsa_postseries_before_content($content){
-    if (is_single()) {
+    if (is_single() && !empty($content)) {
 
         $termsnow = get_the_terms( get_the_ID(), 'postseries', true )[0]->slug;
         $siteID = get_the_ID();

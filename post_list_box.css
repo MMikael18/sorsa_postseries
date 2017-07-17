@@ -1,3 +1,6 @@
+#post_list_box{
+    width: 45%;
+}
 #post_list_box ul{
     margin: 0;
     padding: 0;

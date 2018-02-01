@@ -120,7 +120,7 @@ function sorsa_postseries_before_content($content){
         $siteID = get_the_ID();
 
         if(isset($termsnow)){
-            ob_start();
+            
             global $post;
             $args = array( 
                 'postseries' => $termsnow, 
@@ -129,13 +129,13 @@ function sorsa_postseries_before_content($content){
                 'order' => 'ASC' );
 
             $myposts = get_posts( $args );
-            
+
+            ob_start();
             ?>
             <div id="post_list_box">
             <ul>        
             <strong><?php echo $termsnow ?></strong>
             <?php
-            
             foreach ( $myposts as $post ) : setup_postdata( $post ); 
                 $num = get_post_meta( $post->ID, 'series_order', true );
                 $num = $num == "0" ? "" : $num.". " ;
@@ -151,15 +151,14 @@ function sorsa_postseries_before_content($content){
                 <?php
             endforeach; 
             //wp_reset_postdata();
-
             ?>
             </ul>
             </div>        
             <?php
-
+            $data = ob_get_clean();
         }
     }
-	return ob_get_clean() . $content;
+	return $data . $content;
 }
 add_filter( "the_content", "sorsa_postseries_before_content" );
 

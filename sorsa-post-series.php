@@ -120,7 +120,7 @@ function sorsa_postseries_before_content($content){
         $siteID = get_the_ID();
 
         if(isset($termsnow)){
-            
+            ob_start();
             global $post;
             $args = array( 
                 'postseries' => $termsnow, 
@@ -150,7 +150,7 @@ function sorsa_postseries_before_content($content){
                 </li>
                 <?php
             endforeach; 
-            wp_reset_postdata();
+            //wp_reset_postdata();
 
             ?>
             </ul>
@@ -159,7 +159,7 @@ function sorsa_postseries_before_content($content){
 
         }
     }
-	return $content;
+	return ob_get_clean() . $content;
 }
 add_filter( "the_content", "sorsa_postseries_before_content" );
 
